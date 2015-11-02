@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         int signRandom = rand.nextInt(4);
         String sign = signs.get(signRandom);
 
+
         int correctAnswer;
         switch (sign){
             case "+":
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 correctAnswer = a * b;
                 break;
             case "/":
+                if (b == 0){ b++; }
                 correctAnswer = a / b;
                 break;
             default:
