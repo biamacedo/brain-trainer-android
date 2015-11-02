@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout gameRelativeLayout;
 
     ArrayList<Integer> answers = new ArrayList<>();
+    ArrayList<String> signs = new ArrayList<>(Arrays.asList("+", "-", "*", "/"));
     int locationOfCorrectAnswer;
     int score = 0;
     int numberOfQuestions = 0;
@@ -87,8 +89,29 @@ public class MainActivity extends AppCompatActivity {
 
         int a = rand.nextInt(21);
         int b = rand.nextInt(21);
+        int signRandom = rand.nextInt(4);
+        String sign = signs.get(signRandom);
 
-        sumTextView.setText(Integer.toString(a) + " + " + Integer.toString(b));
+        int correctAnswer;
+        switch (sign){
+            case "+":
+                correctAnswer = a + b;
+                break;
+            case "-":
+                correctAnswer = a - b;
+                break;
+            case "*":
+                correctAnswer = a * b;
+                break;
+            case "/":
+                correctAnswer = a / b;
+                break;
+            default:
+                correctAnswer = a + b;
+                break;
+        }
+
+        sumTextView.setText(Integer.toString(a) + " " + sign + " " + Integer.toString(b));
 
         int incorrectAnswer;
 
@@ -98,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < 4; i++){
             if (i == locationOfCorrectAnswer){
-                answers.add(a + b);
+                answers.add(correctAnswer);
             } else {
                 incorrectAnswer = rand.nextInt(41);
 
-                while (incorrectAnswer == a + b){
+                while (incorrectAnswer == correctAnswer){
                     incorrectAnswer = rand.nextInt(41);
                 }
 
